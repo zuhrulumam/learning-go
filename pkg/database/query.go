@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-var cs *masterConn
+var cs *connection
 
 func Query(query string) (*sql.Rows, error) {
 	if cs == nil {

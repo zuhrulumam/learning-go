@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 )
 
 type mysql struct {
@@ -11,7 +10,5 @@ type mysql struct {
 
 func (m *mysql) query(q string) (*sql.Rows, error) {
 
-	fmt.Println("query from mysql", q)
-
-	return nil, nil
+	return m.db.Query(q)
 }

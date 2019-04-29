@@ -3,7 +3,6 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql" // for driver
 )
@@ -14,6 +13,10 @@ type sqlQ interface {
 
 type connection struct {
 	s sqlQ
+}
+
+func (c *connection) reader() sqlQ {
+	return c.s
 }
 
 func newConnection(dbURL string) (*connection, error) {
@@ -41,8 +44,6 @@ func newConnection(dbURL string) (*connection, error) {
 
 	fmt.Println(mysqlconn.s.query("test"))
 	fmt.Println(pgconn.s.query("test"))
-
-	log.Println("database connected to ", dbURL)
 
 	return mysqlconn, nil
 

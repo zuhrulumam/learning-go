@@ -16,6 +16,7 @@ func main() {
 	}
 
 	database.Configure(config.DbURL())
+	defer database.Quit()
 
 	// run server
 	log.Println("Server run on ", config.ListenAddr())

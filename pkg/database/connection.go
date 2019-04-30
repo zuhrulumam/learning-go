@@ -12,7 +12,8 @@ type sqlQ interface {
 }
 
 type connection struct {
-	s sqlQ
+	s      sqlQ
+	quitFn func()
 }
 
 func (c *connection) reader() sqlQ {
@@ -30,19 +31,24 @@ func newConnection(dbURL string) (*connection, error) {
 		return nil, err
 	}
 
+	closeFn := func() {
+		db.Close()
+	}
+
 	mysqlconn := &connection{
 		s: &mysql{
 			db: db,
 		},
+		quitFn: closeFn,
 	}
 
 	pgconn := &connection{
 		s: &pgSQL{
 			db: db,
 		},
+		quitFn: closeFn,
 	}
 
-	fmt.Println(mysqlconn.s.query("test"))
 	fmt.Println(pgconn.s.query("test"))
 
 	return mysqlconn, nil

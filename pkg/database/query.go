@@ -7,6 +7,7 @@ import (
 
 var cs *connection
 
+// Query doing query with existing connection
 func Query(query string) (*sql.Rows, error) {
 	if cs == nil {
 		log.Println("master conn empty")

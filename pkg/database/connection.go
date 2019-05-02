@@ -8,8 +8,8 @@ import (
 )
 
 type sqlQ interface {
-	query(query string) (*sql.Rows, error)
-	exec(query string) (sql.Result, error)
+	query(query string, args ...interface{}) (*sql.Rows, error)
+	exec(query string, args ...interface{}) (sql.Result, error)
 }
 
 type connection struct {

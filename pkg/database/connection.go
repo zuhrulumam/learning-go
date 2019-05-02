@@ -9,6 +9,7 @@ import (
 
 type sqlQ interface {
 	query(query string) (*sql.Rows, error)
+	exec(query string) (sql.Result, error)
 }
 
 type connection struct {
@@ -17,6 +18,10 @@ type connection struct {
 }
 
 func (c *connection) reader() sqlQ {
+	return c.s
+}
+
+func (c *connection) writer() sqlQ {
 	return c.s
 }
 

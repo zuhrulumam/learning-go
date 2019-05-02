@@ -15,3 +15,10 @@ func (m *pgSQL) query(q string) (*sql.Rows, error) {
 
 	return nil, nil
 }
+
+func (m *pgSQL) exec(q string) (sql.Result, error) {
+
+	fmt.Println("query from pgsql")
+
+	return nil, nil
+}

@@ -42,7 +42,7 @@ func v1ListUsersHandler(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	// log.Println(countData)
-
+	log.Println(w)
 	query := `
 		select name, address from users
 	`

@@ -1,11 +1,7 @@
 package users
 
 import (
-	// "log"
-	// "net/http"
-
 	"github.com/go-chi/chi"
-	// "github.com/zuhrulumam/learning-go/pkg/database"
 )
 
 // Routes list user routes

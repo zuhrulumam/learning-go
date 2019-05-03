@@ -1,14 +1,16 @@
 package users
 
 import (
-	"github.com/zuhrulumam/learning-go/pkg/database"
 	"net/http"
 
-	"github.com/go-chi/render"
+	"github.com/zuhrulumam/learning-go/pkg/database"
+
 	"log"
+
+	"github.com/go-chi/render"
 )
 
-func v1ListUsers(w http.ResponseWriter, r *http.Request) {
+func v1ListUsersHandler(w http.ResponseWriter, r *http.Request) {
 	// query := `
 	// 	select name, (select count(id) from users) as countData from users
 	// `
@@ -42,7 +44,7 @@ func v1ListUsers(w http.ResponseWriter, r *http.Request) {
 	// log.Println(countData)
 
 	query := `
-		select name from users
+		select name, address from users
 	`
 
 	countQuery := `
@@ -83,7 +85,7 @@ func v1ListUsers(w http.ResponseWriter, r *http.Request) {
 	users := []User{}
 	for rows.Next() {
 		user := User{}
-		err = rows.Scan(&user.Name)
+		err = rows.Scan(&user.Name, &user.Address)
 		if err != nil {
 			render.Status(r, 500)
 			render.JSON(w, r, "error scanning")

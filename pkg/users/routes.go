@@ -47,5 +47,6 @@ func Routes(r chi.Router) {
 	// 	log.Println(users)
 	// 	log.Println("Get / from users")
 	// })
-	r.Get("/", v1ListUsers)
+	r.Get("/", v1ListUsersHandler)
+	r.Post("/", v1CreateUserHandler)
 }

@@ -13,7 +13,7 @@ func Query(query string, args ...interface{}) (*sql.Rows, error) {
 		log.Println("conn empty")
 	}
 	conn := cs.reader()
-	return conn.query(query, args)
+	return conn.query(query, args...)
 }
 
 // Exec doing write operation
@@ -23,5 +23,5 @@ func Exec(query string, args ...interface{}) (sql.Result, error) {
 	}
 
 	conn := cs.writer()
-	return conn.exec(query, args)
+	return conn.exec(query, args...)
 }

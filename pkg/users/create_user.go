@@ -1,21 +1,38 @@
 package users
 
 import (
-	"github.com/zuhrulumam/learning-go/pkg/database"
+	"encoding/json"
 	"log"
 	"net/http"
+
+	"github.com/go-chi/render"
+	"github.com/zuhrulumam/learning-go/pkg/database"
 )
 
-func v1CreateUser(w http.ResponseWriter, r *http.Request) {
-	log.Println("create user")
-	query := `
-		insert into users (name, address) 
-		values 
-		(?,?)
-		returning * 
-	`
-	_, err := database.Exec(query, "umam", "test address")
-	if err != nil {
-		log.Println("error creating")
+type v1CreateUsersPayload struct {
+	Name    string `json:"name"`
+	Address string `json:"address"`
+}
+
+func v1CreateUserHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("creating user")
+
+	var req v1CreateUsersPayload
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		log.Println("error on reading json")
+		return
 	}
+
+	query := `
+		insert into users (name, address, created_at) 
+		values
+		(?, ?, now())
+	`
+	_, err := database.Exec(query, req.Name, req.Address)
+	if err != nil {
+		log.Println("error creating " + err.Error())
+	}
+
+	render.Status(r, 201)
+	render.JSON(w, r, "success creating user")
 }

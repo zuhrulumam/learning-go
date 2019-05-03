@@ -10,9 +10,10 @@ type mysql struct {
 
 func (m *mysql) query(q string, args ...interface{}) (*sql.Rows, error) {
 
-	return m.db.Query(q)
+	return m.db.Query(q, args...)
 }
 
 func (m *mysql) exec(q string, args ...interface{}) (sql.Result, error) {
-	return m.db.Exec(q, args)
+
+	return m.db.Exec(q, args...)
 }

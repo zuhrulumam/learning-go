@@ -1,7 +1,6 @@
 package database
 
 import (
-	// "database/sql"
 	"log"
 )
 
@@ -9,6 +8,18 @@ import (
 func Quit() {
 	log.Println("database closed")
 	cs.quitFn()
+}
+
+// ConfigureGorm configure connection
+func ConfigureGorm(dbURL string) {
+
+	conn, err := newConnectionGorm(dbURL)
+	if err != nil {
+		log.Println("Cannot connect database")
+	}
+
+	cs = conn
+
 }
 
 // Configure configure connection

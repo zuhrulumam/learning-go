@@ -15,8 +15,7 @@ func main() {
 		log.Println("Error Parsing Env")
 	}
 
-	// database.Configure(config.DbURL())
-	database.ConfigureGorm(config.DbURL())
+	database.Configure(config.DbURL())
 	defer database.Quit()
 
 	// run server

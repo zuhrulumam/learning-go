@@ -1,14 +1,24 @@
 package users
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/zuhrulumam/learning-go/pkg/database"
 
-	"log"
-
 	"github.com/go-chi/render"
 )
+
+// User model
+type User struct {
+	Name    string `json:"name"`
+	Address string `json:"address"`
+}
+
+// CountDataModel models
+type CountDataModel struct {
+	CountData uint `json:"count_data"`
+}
 
 func v1ListUsersHandler(w http.ResponseWriter, r *http.Request) {
 	// query := `
@@ -42,59 +52,32 @@ func v1ListUsersHandler(w http.ResponseWriter, r *http.Request) {
 	// }
 
 	// log.Println(countData)
-	log.Println(w)
 	query := `
 		select name, address from users
 	`
 
+	// column must be lowercase _ separated (like column in table name)
 	countQuery := `
-		select count(id) as countData from users
+		select count(id) as count_data from users 
 	`
 
-	countRows, err := database.Query(countQuery)
+	var countDataModel CountDataModel
+	err := database.Query(&countDataModel, countQuery)
 	if err != nil {
 		render.Status(r, 500)
 		render.JSON(w, r, "error on query "+err.Error())
 		return
 	}
-	defer countRows.Close()
 
-	var countData uint
-	for countRows.Next() {
-		err = countRows.Scan(&countData)
-		if err != nil {
-			render.Status(r, 500)
-			render.JSON(w, r, "error scanning count"+err.Error())
-			return
-		}
-	}
-
-	rows, err := database.Query(query)
+	var users []User
+	err = database.Query(&users, query)
 	if err != nil {
 		render.Status(r, 500)
 		render.JSON(w, r, "error on query "+err.Error())
 		return
 	}
-	defer rows.Close()
 
-	type User struct {
-		Name    string `json:"name"`
-		Address string `json:"address"`
-	}
-
-	users := []User{}
-	for rows.Next() {
-		user := User{}
-		err = rows.Scan(&user.Name, &user.Address)
-		if err != nil {
-			render.Status(r, 500)
-			render.JSON(w, r, "error scanning")
-			return
-		}
-		users = append(users, user)
-	}
-
-	log.Println(countData)
+	log.Println("count data ", countDataModel.CountData)
 
 	render.Status(r, 200)
 	render.JSON(w, r, &users)

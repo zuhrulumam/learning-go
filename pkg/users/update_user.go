@@ -29,7 +29,8 @@ func v1UpdateUsersHandler(w http.ResponseWriter, r *http.Request) {
 		updated_at = now() 
 		where id = ? 
 	`
-	_, err := database.Exec(query, req.Name, req.Address, id)
+
+	err := database.Exec(query, req.Name, req.Address, id)
 	if err != nil {
 		log.Println("error creating " + err.Error())
 	}

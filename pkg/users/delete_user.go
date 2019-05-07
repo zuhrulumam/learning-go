@@ -18,7 +18,7 @@ func v1DeleteUsersHandler(w http.ResponseWriter, r *http.Request) {
 	query := `
 		delete from users where id = ?
 	`
-	_, err := database.Exec(query, id)
+	err := database.Exec(query, id)
 	if err != nil {
 		log.Println("error creating " + err.Error())
 	}

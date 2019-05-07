@@ -28,7 +28,7 @@ func v1CreateUserHandler(w http.ResponseWriter, r *http.Request) {
 		values
 		(?, ?, now())
 	`
-	_, err := database.Exec(query, req.Name, req.Address)
+	err := database.Exec(query, req.Name, req.Address)
 	if err != nil {
 		log.Println("error creating " + err.Error())
 	}

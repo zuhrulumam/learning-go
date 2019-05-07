@@ -7,6 +7,7 @@ import (
 // Routes list user routes
 func Routes(r chi.Router) {
 	r.Get("/", v1ListUsersHandler)
+	r.Get("/{id}", v1GetUserHandler)
 	r.Post("/", v1CreateUserHandler)
 	r.Put("/{id}", v1UpdateUsersHandler)
 	r.Delete("/{id}", v1DeleteUsersHandler)

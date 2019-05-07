@@ -12,8 +12,8 @@ func Query(dest interface{}, query string, args ...interface{}) error {
 		log.Println("conn empty")
 	}
 	conn := cs.reader()
-	conn.query(dest, query, args...)
-	return nil
+	err := conn.query(dest, query, args...)
+	return err
 }
 
 // Exec doing write operation
@@ -23,6 +23,6 @@ func Exec(query string, args ...interface{}) error {
 	}
 
 	conn := cs.writer()
-	conn.exec(query, args...)
-	return nil
+	err := conn.exec(query, args...)
+	return err
 }

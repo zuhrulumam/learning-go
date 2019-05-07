@@ -14,7 +14,7 @@ func (u *UsersTest) TestUsers_GetAllUsers() {
 	resp := w.Result()
 	body, _ := ioutil.ReadAll(resp.Body)
 
-	fmt.Println(resp.StatusCode)
+	// fmt.Println(resp.StatusCode)
 	// fmt.Println(resp.Header.Get("Content-Type"))
 	fmt.Println("body ", string(body))
 

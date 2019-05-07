@@ -32,7 +32,7 @@ func v1UpdateUsersHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := database.Exec(query, req.Name, req.Address, id)
 	if err != nil {
-		log.Println("error creating " + err.Error())
+		log.Println("error updating " + err.Error())
 	}
 
 	render.Status(r, 200)

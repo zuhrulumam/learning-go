@@ -1,6 +1,8 @@
 package database
 
 import (
+	"log"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -9,12 +11,22 @@ type mysqlgorm struct {
 }
 
 func (m *mysqlgorm) query(dest interface{}, q string, args ...interface{}) error {
+	log.Println(dest)
+	if dest != nil {
+		m.db.Raw(q, args...).Scan(dest)
+	} else {
+		m.db.Raw(q, args...)
+	}
 
-	m.db.Raw(q, args...).Scan(dest)
 	return nil
 }
 
 func (m *mysqlgorm) exec(dest interface{}, q string, args ...interface{}) error {
-	m.db.Exec(q, args...).Scan(dest)
+	log.Println(dest)
+	if dest != nil {
+		m.db.Exec(q, args...).Scan(dest)
+	} else {
+		m.db.Exec(q, args...)
+	}
 	return nil
 }

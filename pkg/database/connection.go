@@ -54,6 +54,7 @@ func newConnectionGorm(dbURL string) (*connection, error) {
 	closeFn := func() {
 		db.Close()
 	}
+	db.Debug()
 
 	mysqlconn := &connection{
 		sGorm: &mysqlgorm{

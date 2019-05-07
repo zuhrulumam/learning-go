@@ -19,7 +19,6 @@ func ConfigureGorm(dbURL string) {
 	}
 
 	cs = conn
-
 }
 
 // Configure configure connection
@@ -45,6 +44,21 @@ func ConfigureTest(dbURL string) error {
 
 	cs = conn
 
-	return nil
+	return err
+
+}
+
+// ConfigureGormTest configure connection test
+func ConfigureGormTest(dbURL string) error {
+
+	conn, err := newConnection(dbURL)
+	if err != nil {
+		log.Println("Cannot connect database")
+		return err
+	}
+
+	cs = conn
+
+	return err
 
 }

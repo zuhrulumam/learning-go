@@ -1,10 +1,11 @@
 package users
 
 import (
-	"fmt"
-	"io/ioutil"
+	"net/http"
 	"net/http/httptest"
 )
+
+var newUserTest User
 
 func (u *UsersTest) TestUsers_GetAllUsers() {
 	// create requests
@@ -12,12 +13,11 @@ func (u *UsersTest) TestUsers_GetAllUsers() {
 	w := httptest.NewRecorder()
 	v1ListUsersHandler(w, req)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	// body, _ := ioutil.ReadAll(resp.Body)
 
-	// fmt.Println(resp.StatusCode)
 	// fmt.Println(resp.Header.Get("Content-Type"))
-	fmt.Println("body ", string(body))
+	// fmt.Println("body ", string(body))
 
-	u.True(true, "it should true")
+	u.Equal(http.StatusOK, resp.StatusCode, "it should be status ok")
 
 }

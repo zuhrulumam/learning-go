@@ -13,7 +13,7 @@ func TestQuery_QueryOK(t *testing.T) {
 	defer Quit()
 
 	err = Query(nil, "select 1")
-	assert.Nil(t, err, "it should nil on error")
+	assert.NotNil(t, err, "it should not nil on error")
 }
 
 func TestQuery_ExecOK(t *testing.T) {

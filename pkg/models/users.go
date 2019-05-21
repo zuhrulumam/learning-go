@@ -8,7 +8,7 @@ import (
 
 // Users model
 type Users struct {
-	ID      uint   `json:"id"`
+	ID      uint   `gorm:"primary_key" json:"id"`
 	Name    string `json:"name"`
 	Address string `json:"address"`
 }

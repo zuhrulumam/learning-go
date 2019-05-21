@@ -54,7 +54,7 @@ func v1ListUsersHandler(w http.ResponseWriter, r *http.Request) {
 
 	// log.Println(countData)
 	query := `
-		select name, address from users
+		select id, name, address from users
 	`
 
 	// column must be lowercase _ separated (like column in table name)
